@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
+  <title>Login - Rangga Network</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .amongus-character {
+      position: absolute;
+      z-index: 999;
+      pointer-events: none;
+      filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+    }
+
+    .pink { width: 100px; animation: moveInside1 20s infinite ease-in-out; }
+    .blue { width: 80px; animation: moveInside2 25s infinite ease-in-out; }
+
+    @keyframes moveInside1 {
+      0%   { top: 10%; left: 10%; transform: rotate(0deg); }
+      25%  { top: 10%; left: 80%; transform: rotate(90deg); }
+      50%  { top: 80%; left: 80%; transform: rotate(180deg); }
+      75%  { top: 80%; left: 10%; transform: rotate(270deg); }
+      100% { top: 10%; left: 10%; transform: rotate(360deg); }
+    }
+
+    @keyframes moveInside2 {
+      0%   { top: 80%; left: 80%; transform: rotate(0deg); }
+      33%  { top: 20%; left: 50%; transform: rotate(-120deg); }
+      66%  { top: 70%; left: 10%; transform: rotate(-240deg); }
+      100% { top: 80%; left: 80%; transform: rotate(-360deg); }
+    }
+
+    .container-login {
+      background: rgba(20, 20, 20, 0.95);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 212, 255, 0.2);
+      text-align: center;
+      z-index: 1;
+      width: 300px;
+      border: 1px solid #333;
+      backdrop-filter: blur(5px);
+    }
+
+    .title { color: #00d4ff; font-weight: bold; margin-bottom: 5px; letter-spacing: 2px; }
+    .sub-title { color: #888; font-size: 11px; margin-bottom: 20px; }
+    
+    input { 
+      background: #222; 
+      color: #fff; 
+      border: 1px solid #444; 
+      padding: 12px; 
+      margin: 8px 0; 
+      border-radius: 8px; 
+      width: 90%;
+      outline: none;
+    }
+    
+    input:focus { border-color: #00d4ff; }
+
+    .btn-submit { 
+      background: #00d4ff; 
+      color: #000; 
+      border: none; 
+      padding: 12px; 
+      margin-top: 10px; 
+      cursor: pointer; 
+      border-radius: 8px; 
+      font-weight: bold; 
+      width: 98%;
+    }
+
+    .menu-items { 
+      background: #111; 
+      margin-top: 20px; 
+      padding: 10px; 
+      border-radius: 10px; 
+      font-size: 12px;
+      border: 1px solid #222;
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="container-login">
+    <div class="title">WELCOME IN ALIFY NETWORK</div>
+    <div class="sub-title">MEMBER ONLY ACCESS</div>
+
+    <!-- FORM LOGIN DENGAN CHAP -->
+    $(if chap-id)
+    <form name="sendin" action="$(link-login-only)" method="post">
+      <input type="hidden" name="username" />
+      <input type="hidden" name="password" />
+      <input type="hidden" name="dst" value="$(link-orig)" />
+      <input type="hidden" name="popup" value="true" />
+    </form>
+
+    <script src="/md5.js"></script>
+    <script>
+    function doLogin() {
+      document.sendin.username.value = document.login.username.value;
+      document.sendin.password.value =
+        hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+      document.sendin.submit();
+      return false;
+    }
+    </script>
+    $(endif)
+
+    <form name="login" action="$(link-login-only)" method="post"
+          $(if chap-id) onsubmit="return doLogin()" $(endif)>
+      <input type="hidden" name="dst" value="$(link-orig)" />
+      <input type="hidden" name="popup" value="true" />
+      
+      <input type="text" name="username" placeholder="Username" value="$(username)" required />
+      <input type="password" name="password" placeholder="Password" required />
+      
+      <button class="btn-submit" type="submit">LOGIN</button>
+    </form>
+
+<script>
+document.login.username.focus();
+</script>
+
+</body>
+</html>
